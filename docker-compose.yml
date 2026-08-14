@@ -1,0 +1,35 @@
+version: "3.9"
+
+services:
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    # After first `docker compose up`, run:
+    #   docker exec -it docuchat-ollama-1 ollama pull llama3.1:8b
+    # (or a smaller model like qwen2.5:3b if your machine is memory-constrained)
+
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data/uploads:/data/uploads
+      - ./data/chroma:/data/chroma
+    environment:
+      - DOCUCHAT_OLLAMA_BASE_URL=http://ollama:11434
+      - DOCUCHAT_OLLAMA_MODEL=llama3.1:8b
+    depends_on:
+      - ollama
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+
+volumes:
+  ollama_data:

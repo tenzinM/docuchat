@@ -1,0 +1,13 @@
+{
+  "_instructions": "Upload a test PDF to DocuChat first, then replace these examples with real question/ground_truth pairs based on that document's actual content. Keep 10-20 pairs for a meaningful eval.",
+  "examples": [
+    {
+      "question": "What is this document about?",
+      "ground_truth": "Replace with the actual correct answer based on your test document."
+    },
+    {
+      "question": "What was mentioned regarding [specific topic in your document]?",
+      "ground_truth": "Replace with the actual correct answer."
+    }
+  ]
+}
